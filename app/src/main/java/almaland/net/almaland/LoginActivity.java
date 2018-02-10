@@ -3,6 +3,7 @@ package almaland.net.almaland;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Authenticate with linkedin and intialize Session.
-
     public void login(View view){
         LISessionManager.getInstance(getApplicationContext())
                 .init(this, buildScope(), new AuthListener() {
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 .getInstance(getApplicationContext())
                                                 .getSession().getAccessToken().toString(),
                                 Toast.LENGTH_LONG).show();
-
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }
 
                     @Override
@@ -45,15 +45,13 @@ public class LoginActivity extends AppCompatActivity {
                 }, true);
     }
 
-    /*// handle the respone by calling LISessionManager and start new activity
+    // handle the respone by calling LISessionManager and start new activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         LISessionManager.getInstance(getApplicationContext())
                 .onActivityResult(this,
                         requestCode, resultCode, data);
-
-        Toast.makeText(this, "Login Success?", Toast.LENGTH_SHORT).show();
-    }*/
+    }
 
     // set the permission to retrieve basic information of User's linkedIn account
     private static Scope buildScope() {

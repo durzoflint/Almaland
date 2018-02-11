@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "504876890999",
+    "firebase_url": "https://almaland-4330e.firebaseio.com",
+    "project_id": "almaland-4330e",
+    "storage_bucket": "almaland-4330e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504876890999:android:469f90a596418d63",
+        "android_client_info": {
+          "package_name": "almaland.net.almaland"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504876890999-f3bfau14c74oq6cejpum8s2b9u2uaoqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "almaland.net.almaland",
+            "certificate_hash": "ea2c9a6af91d8b72eb48e255e99255d1462f12c3"
+          }
+        },
+        {
+          "client_id": "504876890999-mjv9f6nbi7f43245tiajvl8v39jucfnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIoEgaFZbH6wKe2h2wwkIxZwZvw5SUE3A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504876890999-mjv9f6nbi7f43245tiajvl8v39jucfnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

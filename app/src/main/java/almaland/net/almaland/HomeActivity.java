@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onApiError(LIApiError error) {
+                progress.dismiss();
                 Log.d("Abhinav", error.getMessage());
             }
         });

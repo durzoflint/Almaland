@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Almaland</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">XCTYKeoy1NkRu7OtnuxCXKI5q</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">Hep7kvI9M5bcDESe7SJviHIwX8JeRMxwITJqwQbb2gPBPua2oq</string>
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 //updateUI(null);
             }
         });
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void handleTwitterSession(TwitterSession session) {
@@ -76,21 +78,18 @@ public class LoginActivity extends AppCompatActivity {
                 session.getAuthToken().secret);
 
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("Abhinav", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("Abhinav", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("Abhinav", "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        //updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Abhinav", "signInWithCredential:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
                     }
                 });
     }
@@ -129,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, true);
     }
 
-    // handle the respone by calling LISessionManager and start new activity
+    // handle the response by calling LISessionManager and start new activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Linkedin

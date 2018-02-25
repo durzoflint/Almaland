@@ -51,7 +51,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public  void  showResult(JSONObject response){
-
         try {
             String email = response.get("emailAddress").toString();
             Log.d("Abhinav", response.toString());

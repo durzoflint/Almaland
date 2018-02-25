@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +34,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    TwitterLoginButton loginButton;
+    TwitterLoginButton loginTwitter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,41 +43,56 @@ public class LoginActivity extends AppCompatActivity {
         TwitterAuthConfig authConfig =  new TwitterAuthConfig(
                 getString(R.string.com_twitter_sdk_android_CONSUMER_KEY),
                 getString(R.string.com_twitter_sdk_android_CONSUMER_SECRET));
-
         TwitterConfig twitterConfig = new TwitterConfig.Builder(this)
                 .twitterAuthConfig(authConfig)
                 .build();
-
         Twitter.initialize(twitterConfig);
-
         setContentView(R.layout.activity_login);
-
         mAuth = FirebaseAuth.getInstance();
 
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setCallback(new Callback<TwitterSession>() {
+        loginTwitter = findViewById(R.id.login_twitter);
+        loginTwitter.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.d("Abhinav", "twitterLogin:success" + result);
+                //Handle valid login here
                 handleTwitterSession(result.data);
             }
-
             @Override
             public void failure(TwitterException exception) {
-                Log.w("Abhinav", "twitterLogin:failure", exception);
+                Log.d("Abhinav", "twitterLogin:failure", exception);
+                //Handle invalid login here
                 //updateUI(null);
             }
         });
+
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        Button login = findViewById(R.id.login);
+        login.setOnClickListener(view -> {
+            EditText email = findViewById(R.id.email);
+            EditText password = findViewById(R.id.password);
+            //Escape the password as below
+            /*myURL = myURL.replaceAll(" ", "%20");
+            myURL = myURL.replaceAll("\'", "%27");
+            myURL = myURL.replaceAll("\'", "%22");
+            myURL = myURL.replaceAll("\\(", "%28");
+            myURL = myURL.replaceAll("\\)", "%29");
+            myURL = myURL.replaceAll("\\{", "%7B");
+            myURL = myURL.replaceAll("\\}", "%7B");
+            myURL = myURL.replaceAll("\\]", "%22");
+            myURL = myURL.replaceAll("\\[", "%22");*/
+            //Todo use email and password to login at
+            //http://almaland.net/app/login.php?email=aaaorabhinav@gmail.com&password=password
+            //If Email not registered then take display invalid username or password
+        });
     }
 
     private void handleTwitterSession(TwitterSession session) {
         Log.d("Abhinav", "handleTwitterSession:" + session);
-
         AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
-
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -86,14 +102,13 @@ public class LoginActivity extends AppCompatActivity {
                         //updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("Abhinav", "signInWithCredential:failure", task.getException());
+                        Log.d("Abhinav", "signInWithCredential:failure", task.getException());
                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         //updateUI(null);
                     }
                 });
     }
-
 
     @Override
     public void onStart() {
@@ -104,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Authenticate with linkedin and intialize Session.
-    public void login(View view){
+    public void loginLinkedin(View view){
         LISessionManager.getInstance(getApplicationContext())
                 .init(this, buildScope(), new AuthListener() {
                     @Override
@@ -137,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                         requestCode, resultCode, data);
 
         // Pass the activity result to the Twitter login button.
-        loginButton.onActivityResult(requestCode, resultCode, data);
+        loginTwitter.onActivityResult(requestCode, resultCode, data);
     }
 
     // set the permission to retrieve basic information of User's linkedIn account

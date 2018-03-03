@@ -21,7 +21,7 @@ public class PersonalDetailsFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
-        Button button = rootView.findViewById(R.id.button2);
+        Button button = rootView.findViewById(R.id.next);
         button.setOnClickListener(view -> {
             int id = RegisterUserActivity.id;
             ViewPager viewPager = getActivity().findViewById(id);

@@ -3,12 +3,12 @@ package almaland.net.almaland;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import almaland.net.almaland.RegisterUser.RegisterUserActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -18,6 +18,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        TextView notRegistered = findViewById(R.id.notregistered);
+        notRegistered.setOnClickListener(view -> {
+            startActivity(new Intent(this, RegisterUserActivity.class));
+        });
 
         Button login = findViewById(R.id.login);
         login.setOnClickListener(view -> {

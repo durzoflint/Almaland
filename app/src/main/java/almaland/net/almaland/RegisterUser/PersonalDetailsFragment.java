@@ -55,6 +55,7 @@ public class PersonalDetailsFragment extends Fragment{
     }
 
     private class FetchCountry extends AsyncTask<Void,Void,Void> {
+        boolean notConnected = false;
         String webPage="";
         String baseUrl = "http://almaland.net/app/";
         @Override
@@ -72,6 +73,7 @@ public class PersonalDetailsFragment extends Fragment{
             }
             catch (IOException e)
             {
+                notConnected = true;
                 e.printStackTrace();
             }
             finally
@@ -84,36 +86,44 @@ public class PersonalDetailsFragment extends Fragment{
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(!webPage.isEmpty())
+            if (notConnected)
             {
-                country = new ArrayList<>();
-                countryId = new ArrayList<>();
-                while (webPage.contains("<br>"))
+                Toast.makeText(getActivity(), "Connection Error", Toast.LENGTH_LONG).show();
+                getActivity().onBackPressed();
+            }
+            else
+            {
+                if(!webPage.isEmpty())
                 {
-                    int brI = webPage.indexOf("<br>");
-                    String id = webPage.substring(0, brI);
-                    webPage = webPage.substring(brI + 4);
-                    brI = webPage.indexOf("<br>");
-                    String name = webPage.substring(0, brI);
-                    webPage = webPage.substring(brI + 4);
-                    country.add(name);
-                    countryId.add(id);
-                }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_item, country);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                Spinner countrySpinner = rootView.findViewById(R.id.country);
-                countrySpinner.setAdapter(dataAdapter);
-                countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        selectedCountryId = countryId.get(country.indexOf(adapterView.getItemAtPosition(i).toString()));
-                        new FetchState().execute(selectedCountryId);
+                    country = new ArrayList<>();
+                    countryId = new ArrayList<>();
+                    while (webPage.contains("<br>"))
+                    {
+                        int brI = webPage.indexOf("<br>");
+                        String id = webPage.substring(0, brI);
+                        webPage = webPage.substring(brI + 4);
+                        brI = webPage.indexOf("<br>");
+                        String name = webPage.substring(0, brI);
+                        webPage = webPage.substring(brI + 4);
+                        country.add(name);
+                        countryId.add(id);
                     }
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
+                            android.R.layout.simple_spinner_item, country);
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    Spinner countrySpinner = rootView.findViewById(R.id.country);
+                    countrySpinner.setAdapter(dataAdapter);
+                    countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            selectedCountryId = countryId.get(country.indexOf(adapterView.getItemAtPosition(i).toString()));
+                            new FetchState().execute(selectedCountryId);
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {}
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {}
+                    });
+                }
             }
         }
     }
@@ -150,8 +160,6 @@ public class PersonalDetailsFragment extends Fragment{
             super.onPostExecute(aVoid);
             if(!webPage.isEmpty())
             {
-                state = new ArrayList<>();
-                stateId = new ArrayList<>();
                 while (webPage.contains("<br>"))
                 {
                     int brI = webPage.indexOf("<br>");

@@ -88,7 +88,7 @@ public class PersonalDetailsFragment extends Fragment{
             super.onPostExecute(aVoid);
             if (notConnected)
             {
-                Toast.makeText(getActivity(), "Connection Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Connection Error. Please Connect to the Internet and Try Again", Toast.LENGTH_LONG).show();
                 getActivity().onBackPressed();
             }
             else
@@ -160,6 +160,8 @@ public class PersonalDetailsFragment extends Fragment{
             super.onPostExecute(aVoid);
             if(!webPage.isEmpty())
             {
+                state = new ArrayList<>();
+                stateId = new ArrayList<>();
                 while (webPage.contains("<br>"))
                 {
                     int brI = webPage.indexOf("<br>");

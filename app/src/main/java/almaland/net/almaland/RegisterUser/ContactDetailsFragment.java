@@ -20,11 +20,17 @@ public class ContactDetailsFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_contact_details, container, false);
-        Button button = rootView.findViewById(R.id.button3);
-        button.setOnClickListener(view -> {
+        Button prev = rootView.findViewById(R.id.prev);
+        prev.setOnClickListener(view -> {
             int id = RegisterUserActivity.id;
             ViewPager viewPager = getActivity().findViewById(id);
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+        });
+        Button next = rootView.findViewById(R.id.next);
+        next.setOnClickListener(view -> {
+            int id = RegisterUserActivity.id;
+            ViewPager viewPager = getActivity().findViewById(id);
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
         });
         return rootView;
     }

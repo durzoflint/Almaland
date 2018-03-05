@@ -93,9 +93,9 @@ public class RegisterUserActivity extends AppCompatActivity {
                     return new ContactDetailsFragment();
                 case 2:
                     return new EducationDetailsFragment();
-                /*case 3:
-                    return new ContactDetailsFragment();
-                case 4:
+                case 3:
+                    return new EmploymentDetailsFragment();
+                /*case 4:
                     return new ContactDetailsFragment();
                 case 5:
                     return new ContactDetailsFragment();*/
@@ -106,7 +106,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 }

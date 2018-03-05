@@ -89,7 +89,7 @@
                         android:id="@+id/selectemploymentdateto"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="8dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -109,7 +109,16 @@
                             android:hint="Date of Employment To"
                             android:inputType="date"
                             android:textSize="16sp" />
+
                     </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/currently"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:text="Currently Working Here" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

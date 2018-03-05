@@ -82,17 +82,38 @@
                         android:inputType="textPersonName"
                         android:textSize="16sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Country"
+                        android:textSize="14sp" />
+
                     <Spinner
                         android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="State"
+                        android:textSize="14sp" />
+
                     <Spinner
                         android:id="@+id/state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="City"
+                        android:textSize="14sp" />
 
                     <Spinner
                         android:id="@+id/city"
@@ -115,15 +136,12 @@
                             android:layout_marginEnd="8dp"
                             app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/dob"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="8dp"
-                            android:ems="6"
-                            android:hint="Date of Birth"
-                            android:inputType="date"
+                            android:text="Date of Birth"
                             android:textSize="16sp" />
                     </LinearLayout>
 

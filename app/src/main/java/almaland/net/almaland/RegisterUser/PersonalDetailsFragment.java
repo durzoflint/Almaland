@@ -2,6 +2,7 @@ package almaland.net.almaland.RegisterUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -10,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -42,12 +46,63 @@ public class PersonalDetailsFragment extends Fragment{
         rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
         Button next = rootView.findViewById(R.id.next);
         next.setOnClickListener(view -> {
-            int id = RegisterUserActivity.id;
-            ViewPager viewPager = getActivity().findViewById(id);
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            if (check())
+            {
+                int id = RegisterUserActivity.id;
+                ViewPager viewPager = getActivity().findViewById(id);
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            }
         });
         new FetchCountry().execute();
         return rootView;
+    }
+
+    boolean check()
+    {
+        String data[] = RegisterUserActivity.data;
+        TextView firstNameTV = rootView.findViewById(R.id.firstname);
+        data[0] = firstNameTV.getText().toString();
+        TextView lastNameTV = rootView.findViewById(R.id.lastname);
+        data[1] = lastNameTV.getText().toString();
+        TextView usernameTV = rootView.findViewById(R.id.username);
+        data[2] = usernameTV.getText().toString();
+        TextView fathernameTV = rootView.findViewById(R.id.fathername);
+        data[3] = fathernameTV.getText().toString();
+        TextView locationTV = rootView.findViewById(R.id.location);
+        data[4] = locationTV.getText().toString();
+        Spinner countrySpinner = rootView.findViewById(R.id.country);
+        data[5] = countrySpinner.getSelectedItem().toString();
+        Spinner stateSpinner = rootView.findViewById(R.id.state);
+        data[6] = stateSpinner.getSelectedItem().toString();
+        Spinner citySpinner = rootView.findViewById(R.id.city);
+        data[7] = citySpinner.getSelectedItem().toString();
+        TextView dobTV = rootView.findViewById(R.id.dob);
+        data[8] = dobTV.getText().toString();
+        if (data[0].isEmpty())
+        {
+            Toast.makeText(getContext(), "First Name cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (data[1].isEmpty())
+        {
+            Toast.makeText(getContext(), "Last Name cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (data[2].isEmpty())
+        {
+            Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        RadioGroup gender = rootView.findViewById(R.id.gender);
+        int radioButtonId = gender.getCheckedRadioButtonId();
+        if (radioButtonId == -1)
+        {
+            Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        RadioButton userGenderRB = rootView.findViewById(radioButtonId);
+        data[9] = userGenderRB.getText().toString();
+        return true;
     }
 
     private class FetchCountry extends AsyncTask<Void,Void,Void> {

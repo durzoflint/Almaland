@@ -16,10 +16,9 @@ import almaland.net.almaland.R;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
+    static String data[];
     static int id;
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
 
     @Override
@@ -34,6 +33,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.beginFakeDrag();
         mViewPager.setOffscreenPageLimit(4);
+        data = new String[10];
     }
 
     @Override

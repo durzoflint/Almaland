@@ -3,11 +3,15 @@ package almaland.net.almaland.RegisterUser;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import almaland.net.almaland.R;
 
@@ -46,9 +50,11 @@ public class ContactDetailsFragment extends Fragment{
         data[10] = emailET.getText().toString();
         EditText phoneET = rootView.findViewById(R.id.phone);
         data[11] = phoneET.getText().toString();
+        Spinner phoneVisibleSpinner = rootView.findViewById(R.id.visible);
+        data[12] = phoneVisibleSpinner.getSelectedItem().toString();
         EditText workPhoneET = rootView.findViewById(R.id.workphone);
-        data[12] = workPhoneET.getText().toString();
-        /*if(!(!TextUtils.isEmpty(data[10]) && Patterns.EMAIL_ADDRESS.matcher(data[10]).matches()))
+        data[13] = workPhoneET.getText().toString();
+        if(!(!TextUtils.isEmpty(data[10]) && Patterns.EMAIL_ADDRESS.matcher(data[10]).matches()))
         {
             Toast.makeText(getContext(), "Please Enter a valid Email", Toast.LENGTH_SHORT).show();
             return false;
@@ -58,11 +64,11 @@ public class ContactDetailsFragment extends Fragment{
             Toast.makeText(getContext(), "Please Enter a valid Phone Number", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!(!TextUtils.isEmpty(data[12]) && Patterns.PHONE.matcher(data[12]).matches() && data[12].length() > 9))
+        if(!(!TextUtils.isEmpty(data[13]) && Patterns.PHONE.matcher(data[13]).matches() && data[13].length() > 9))
         {
-            Toast.makeText(getContext(), "Please Enter a valid Phone Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please Enter a valid Work Number", Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
         return true;
     }
 

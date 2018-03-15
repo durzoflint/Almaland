@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,13 +79,23 @@ public class EducationDetailsFragment extends Fragment {
 
     private boolean check() {
         String data[] = RegisterUserActivity.data;
+        Spinner collegeSpinner = rootView.findViewById(R.id.college);
+        data[14] = collegeSpinner.getSelectedItem().toString();
+        Spinner majorSpinner = rootView.findViewById(R.id.major);
+        data[15] = majorSpinner.getSelectedItem().toString();
         EditText specializationET = rootView.findViewById(R.id.specialization);
-        data[13] = specializationET.getText().toString();
-        /*if (data[13].isEmpty())
+        data[16] = specializationET.getText().toString();
+        Spinner branchSpinner = rootView.findViewById(R.id.branch);
+        data[17] = branchSpinner.getSelectedItem().toString();
+        Spinner entrySpinner = rootView.findViewById(R.id.entry);
+        data[18] = entrySpinner.getSelectedItem().toString();
+        Spinner graduationSpinner = rootView.findViewById(R.id.graduation);
+        data[19] = graduationSpinner.getSelectedItem().toString();
+        if (data[13].isEmpty())
         {
             Toast.makeText(getContext(), "Specialization cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
         return true;
     }
 

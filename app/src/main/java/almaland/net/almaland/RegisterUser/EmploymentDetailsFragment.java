@@ -71,22 +71,26 @@ public class EmploymentDetailsFragment extends Fragment {
     boolean check() {
         String data[] = RegisterUserActivity.data;
         EditText employerET = rootView.findViewById(R.id.employer);
-        data[14] = employerET.getText().toString();
+        data[20] = employerET.getText().toString();
+        Spinner jobDomainSinner = rootView.findViewById(R.id.jobdomain);
+        data[21] = jobDomainSinner.getSelectedItem().toString();
+        Spinner roleSinner = rootView.findViewById(R.id.role);
+        data[22] = roleSinner.getSelectedItem().toString();
         Button dateOfEmploymentFrom = rootView.findViewById(R.id.dateofemploymentfrom);
-        data[15] = dateOfEmploymentFrom.getText().toString();
+        data[23] = dateOfEmploymentFrom.getText().toString();
         Button dateOfEmploymentTo = rootView.findViewById(R.id.dateofemploymentto);
-        data[16] = dateOfEmploymentTo.getText().toString();
-        if (data[14].isEmpty())
+        data[24] = dateOfEmploymentTo.getText().toString();
+        if (data[20].isEmpty())
         {
             Toast.makeText(getContext(), "Employer cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (data[15].equalsIgnoreCase("Date of Employment From"))
+        else if (data[23].equalsIgnoreCase("Date of Employment From"))
         {
             Toast.makeText(getContext(), "Please Select a Valid Date", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (data[16].equalsIgnoreCase("Date of Employment To"))
+        else if (data[24].equalsIgnoreCase("Date of Employment To"))
         {
             Toast.makeText(getContext(), "Please Select a Valid Date", Toast.LENGTH_SHORT).show();
             return false;

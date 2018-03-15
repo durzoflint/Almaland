@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -102,7 +103,7 @@ public class PersonalDetailsFragment extends Fragment{
         data[8] = dobTV.getText().toString();
         RadioGroup gender = rootView.findViewById(R.id.gender);
         int radioButtonId = gender.getCheckedRadioButtonId();
-        /*if (radioButtonId == -1)
+        if (radioButtonId == -1)
         {
             Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
             return false;
@@ -128,7 +129,7 @@ public class PersonalDetailsFragment extends Fragment{
         {
             Toast.makeText(getContext(), "Please Select Date of Birth", Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
         return true;
     }
 

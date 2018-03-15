@@ -2,15 +2,16 @@ package almaland.net.almaland.RegisterUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -44,6 +45,29 @@ public class PersonalDetailsFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
+        Button dob = rootView.findViewById(R.id.dob);
+        dob.setOnClickListener(view -> {
+            LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
+            final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
+            new AlertDialog.Builder(getContext())
+                    .setView(pickDate)
+                    .setIcon(android.R.drawable.ic_menu_agenda)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
+                        String year = "" + datePicker.getYear();
+                        String month = "" + (datePicker.getMonth() + 1);
+                        String day = "" + datePicker.getDayOfMonth();
+                        if (month.length() == 1)
+                            month = "0" + month;
+                        if (day.length() == 1)
+                            day = "0" + day;
+                        String date = day +" - "+ month +" - "+ year;
+                        TextView textView = (TextView) view;
+                        textView.setText(date);
+                    })
+                    .create().show();
+        });
         Button next = rootView.findViewById(R.id.next);
         next.setOnClickListener(view -> {
             if (check())
@@ -57,8 +81,7 @@ public class PersonalDetailsFragment extends Fragment{
         return rootView;
     }
 
-    boolean check()
-    {
+    boolean check() {
         String data[] = RegisterUserActivity.data;
         TextView firstNameTV = rootView.findViewById(R.id.firstname);
         data[0] = firstNameTV.getText().toString();
@@ -76,8 +99,12 @@ public class PersonalDetailsFragment extends Fragment{
         data[6] = stateSpinner.getSelectedItem().toString();
         Spinner citySpinner = rootView.findViewById(R.id.city);
         data[7] = citySpinner.getSelectedItem().toString();
-        TextView dobTV = rootView.findViewById(R.id.dob);
+        Button dobTV = rootView.findViewById(R.id.dob);
         data[8] = dobTV.getText().toString();
+        RadioGroup gender = rootView.findViewById(R.id.gender);
+        int radioButtonId = gender.getCheckedRadioButtonId();
+        RadioButton userGenderRB = rootView.findViewById(radioButtonId);
+        data[9] = userGenderRB.getText().toString();
         if (data[0].isEmpty())
         {
             Toast.makeText(getContext(), "First Name cannot be empty", Toast.LENGTH_SHORT).show();
@@ -93,15 +120,16 @@ public class PersonalDetailsFragment extends Fragment{
             Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        RadioGroup gender = rootView.findViewById(R.id.gender);
-        int radioButtonId = gender.getCheckedRadioButtonId();
+        else if (data[8].equals("Date of Birth"))
+        {
+            Toast.makeText(getContext(), "Please Select Date of Birth", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (radioButtonId == -1)
         {
             Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
             return false;
         }
-        RadioButton userGenderRB = rootView.findViewById(radioButtonId);
-        data[9] = userGenderRB.getText().toString();
         return true;
     }
 

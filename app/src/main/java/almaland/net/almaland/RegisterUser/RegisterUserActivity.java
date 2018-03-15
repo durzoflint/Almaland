@@ -43,7 +43,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -53,23 +53,17 @@ public class RegisterUserActivity extends AppCompatActivity {
             id = mViewPager.getId();
 
             switch (position) {
-                case 0:
-                    return new PersonalDetailsFragment();
-                case 1:
-                    return new ContactDetailsFragment();
-                case 2:
-                    return new EducationDetailsFragment();
-                case 3:
-                    return new EmploymentDetailsFragment();
-                case 4:
-                    return new PasswordFragment();
+                case 0: return new PersonalDetailsFragment();
+                case 1: return new ContactDetailsFragment();
+                case 2: return new EducationDetailsFragment();
+                case 3: return new EmploymentDetailsFragment();
+                case 4: return new PasswordFragment();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            // Show 5 total pages.
             return 5;
         }
     }

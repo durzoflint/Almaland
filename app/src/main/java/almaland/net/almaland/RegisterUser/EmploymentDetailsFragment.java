@@ -4,12 +4,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,15 +48,91 @@ public class EmploymentDetailsFragment extends Fragment {
         });
         Button next = rootView.findViewById(R.id.next);
         next.setOnClickListener(view -> {
-            int id = RegisterUserActivity.id;
-            ViewPager viewPager = getActivity().findViewById(id);
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            if (check())
+            {
+                int id = RegisterUserActivity.id;
+                ViewPager viewPager = getActivity().findViewById(id);
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            }
+        });
+        Button dateOfEmploymentFrom = rootView.findViewById(R.id.dateofemploymentfrom);
+        dateOfEmploymentFrom.setOnClickListener(view -> {
+            LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
+            final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
+            new AlertDialog.Builder(getContext())
+                    .setView(pickDate)
+                    .setIcon(android.R.drawable.ic_menu_agenda)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
+                        String year = "" + datePicker.getYear();
+                        String month = "" + (datePicker.getMonth() + 1);
+                        String day = "" + datePicker.getDayOfMonth();
+                        if (month.length() == 1)
+                            month = "0" + month;
+                        if (day.length() == 1)
+                            day = "0" + day;
+                        String date = day +" - "+ month +" - "+ year;
+                        TextView textView = (TextView) view;
+                        textView.setText(date);
+                    })
+                    .create().show();
+        });
+        Button dateOfEmploymentTo = rootView.findViewById(R.id.dateofemploymentto);
+        dateOfEmploymentTo.setOnClickListener(view -> {
+            LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
+            final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
+            new AlertDialog.Builder(getContext())
+                    .setView(pickDate)
+                    .setIcon(android.R.drawable.ic_menu_agenda)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
+                        String year = "" + datePicker.getYear();
+                        String month = "" + (datePicker.getMonth() + 1);
+                        String day = "" + datePicker.getDayOfMonth();
+                        if (month.length() == 1)
+                            month = "0" + month;
+                        if (day.length() == 1)
+                            day = "0" + day;
+                        String date = day +" - "+ month +" - "+ year;
+                        TextView textView = (TextView) view;
+                        textView.setText(date);
+                    })
+                    .create().show();
         });
         new FetchJob().execute();
         new FetchRole().execute();
         return rootView;
     }
 
+    boolean check()
+    {
+        String data[] = RegisterUserActivity.data;
+        EditText employerET = rootView.findViewById(R.id.employer);
+        data[14] = employerET.getText().toString();
+        Button dateOfEmploymentFrom = rootView.findViewById(R.id.dateofemploymentfrom);
+        data[15] = dateOfEmploymentFrom.getText().toString();
+        Button dateOfEmploymentTo = rootView.findViewById(R.id.dateofemploymentto);
+        data[16] = dateOfEmploymentTo.getText().toString();
+        if (data[14].isEmpty())
+        {
+            Toast.makeText(getContext(), "Employer cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (data[15].equalsIgnoreCase("Date of Employment From"))
+        {
+            Toast.makeText(getContext(), "Please Select a Valid Date", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (data[16].equalsIgnoreCase("Date of Employment To"))
+        {
+            Toast.makeText(getContext(), "Please Select a Valid Date", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+    
     private class FetchJob extends AsyncTask<Void,Void,Void> {
         boolean notConnected = false;
         String webPage="";
@@ -163,5 +244,4 @@ public class EmploymentDetailsFragment extends Fragment {
             }
         }
     }
-
 }

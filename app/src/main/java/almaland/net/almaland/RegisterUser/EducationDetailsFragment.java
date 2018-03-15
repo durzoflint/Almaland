@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -81,11 +80,11 @@ public class EducationDetailsFragment extends Fragment {
         String data[] = RegisterUserActivity.data;
         EditText specializationET = rootView.findViewById(R.id.specialization);
         data[13] = specializationET.getText().toString();
-        if (data[13].isEmpty())
+        /*if (data[13].isEmpty())
         {
             Toast.makeText(getContext(), "Specialization cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
         return true;
     }
 

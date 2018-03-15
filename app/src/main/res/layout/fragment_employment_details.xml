@@ -32,6 +32,16 @@
                         android:text="Employment Details"
                         android:textSize="18sp" />
 
+                    <EditText
+                        android:id="@+id/employer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:ems="10"
+                        android:hint="Employer"
+                        android:inputType="textCapWords"
+                        android:textSize="16sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,16 +83,11 @@
                             android:layout_marginEnd="8dp"
                             app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
-                        <EditText
+                        <Button
                             android:id="@+id/dateofemploymentfrom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="8dp"
-                            android:ems="10"
-                            android:hint="Date of Employment From"
-                            android:inputType="date"
-                            android:textSize="16sp" />
+                            android:text="Date of Employment From"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -99,16 +104,11 @@
                             android:layout_marginEnd="8dp"
                             app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
-                        <EditText
+                        <Button
                             android:id="@+id/dateofemploymentto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="8dp"
-                            android:ems="10"
-                            android:hint="Date of Employment To"
-                            android:inputType="date"
-                            android:textSize="16sp" />
+                            android:text="Date of Employment To"/>
 
                     </LinearLayout>
 
@@ -118,7 +118,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
-                        android:text="Currently Working Here" />
+                        android:text="Currently Working Here"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

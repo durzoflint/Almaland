@@ -141,8 +141,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Date of Birth"
-                            android:textSize="16sp" />
+                            android:text="Date of Birth" />
                     </LinearLayout>
 
                     <RadioGroup

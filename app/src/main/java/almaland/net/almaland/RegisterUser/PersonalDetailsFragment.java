@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -103,8 +102,13 @@ public class PersonalDetailsFragment extends Fragment{
         data[8] = dobTV.getText().toString();
         RadioGroup gender = rootView.findViewById(R.id.gender);
         int radioButtonId = gender.getCheckedRadioButtonId();
+        /*if (radioButtonId == -1)
+        {
+            Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         RadioButton userGenderRB = rootView.findViewById(radioButtonId);
-        /*data[9] = userGenderRB.getText().toString();
+        data[9] = userGenderRB.getText().toString();
         if (data[0].isEmpty())
         {
             Toast.makeText(getContext(), "First Name cannot be empty", Toast.LENGTH_SHORT).show();
@@ -120,14 +124,9 @@ public class PersonalDetailsFragment extends Fragment{
             Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (data[8].equals("Date of Birth"))
+        else if (data[8].equalsIgnoreCase("Date of Birth"))
         {
             Toast.makeText(getContext(), "Please Select Date of Birth", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (radioButtonId == -1)
-        {
-            Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
             return false;
         }*/
         return true;

@@ -3,6 +3,8 @@
     <string name="com.twitter.sdk.android.CONSUMER_KEY">XCTYKeoy1NkRu7OtnuxCXKI5q</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">Hep7kvI9M5bcDESe7SJviHIwX8JeRMxwITJqwQbb2gPBPua2oq</string>
     <string name="title_activity_register_user">Register User</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string-array name="phone_number_visible">
+        <item>All</item>
+        <item>Me</item>
+    </string-array>
 </resources>

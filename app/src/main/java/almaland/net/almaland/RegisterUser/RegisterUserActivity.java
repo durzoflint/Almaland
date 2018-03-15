@@ -1,16 +1,12 @@
 package almaland.net.almaland.RegisterUser;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import almaland.net.almaland.R;
 
@@ -33,7 +29,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.beginFakeDrag();
         mViewPager.setOffscreenPageLimit(4);
-        data = new String[10];
+        data = new String[20];
     }
 
     @Override

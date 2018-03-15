@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import almaland.net.almaland.R;
 
@@ -40,49 +41,28 @@ public class ContactDetailsFragment extends Fragment{
     }
 
     boolean check() {
-        /*String data[] = RegisterUserActivity.data;
-        TextView firstNameTV = rootView.findViewById(R.id.firstname);
-        data[0] = firstNameTV.getText().toString();
-        TextView lastNameTV = rootView.findViewById(R.id.lastname);
-        data[1] = lastNameTV.getText().toString();
-        TextView usernameTV = rootView.findViewById(R.id.username);
-        data[2] = usernameTV.getText().toString();
-        TextView fathernameTV = rootView.findViewById(R.id.fathername);
-        data[3] = fathernameTV.getText().toString();
-        TextView locationTV = rootView.findViewById(R.id.location);
-        data[4] = locationTV.getText().toString();
-        Spinner countrySpinner = rootView.findViewById(R.id.country);
-        data[5] = countrySpinner.getSelectedItem().toString();
-        Spinner stateSpinner = rootView.findViewById(R.id.state);
-        data[6] = stateSpinner.getSelectedItem().toString();
-        Spinner citySpinner = rootView.findViewById(R.id.city);
-        data[7] = citySpinner.getSelectedItem().toString();
-        TextView dobTV = rootView.findViewById(R.id.dob);
-        data[8] = dobTV.getText().toString();
-        if (data[0].isEmpty())
+        String data[] = RegisterUserActivity.data;
+        EditText emailET = rootView.findViewById(R.id.email);
+        data[10] = emailET.getText().toString();
+        EditText phoneET = rootView.findViewById(R.id.phone);
+        data[11] = phoneET.getText().toString();
+        EditText workPhoneET = rootView.findViewById(R.id.workphone);
+        data[12] = workPhoneET.getText().toString();
+        /*if(!(!TextUtils.isEmpty(data[10]) && Patterns.EMAIL_ADDRESS.matcher(data[10]).matches()))
         {
-            Toast.makeText(getContext(), "First Name cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please Enter a valid Email", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (data[1].isEmpty())
+        if(!(!TextUtils.isEmpty(data[11]) && Patterns.PHONE.matcher(data[11]).matches() && data[11].length() > 9))
         {
-            Toast.makeText(getContext(), "Last Name cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please Enter a valid Phone Number", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (data[2].isEmpty())
+        if(!(!TextUtils.isEmpty(data[12]) && Patterns.PHONE.matcher(data[12]).matches() && data[12].length() > 9))
         {
-            Toast.makeText(getContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please Enter a valid Phone Number", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        RadioGroup gender = rootView.findViewById(R.id.gender);
-        int radioButtonId = gender.getCheckedRadioButtonId();
-        if (radioButtonId == -1)
-        {
-            Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        RadioButton userGenderRB = rootView.findViewById(radioButtonId);
-        data[9] = userGenderRB.getText().toString();*/
+        }*/
         return true;
     }
 

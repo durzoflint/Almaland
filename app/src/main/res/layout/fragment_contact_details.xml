@@ -48,7 +48,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/number"
+                        android:id="@+id/phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -68,10 +68,11 @@
                         android:id="@+id/visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="16dp"
+                        android:entries="@array/phone_number_visible" />
 
                     <EditText
-                        android:id="@+id/worknumber"
+                        android:id="@+id/workphone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"

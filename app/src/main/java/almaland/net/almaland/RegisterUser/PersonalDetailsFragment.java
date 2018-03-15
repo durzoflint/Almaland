@@ -104,7 +104,7 @@ public class PersonalDetailsFragment extends Fragment{
         RadioGroup gender = rootView.findViewById(R.id.gender);
         int radioButtonId = gender.getCheckedRadioButtonId();
         RadioButton userGenderRB = rootView.findViewById(radioButtonId);
-        data[9] = userGenderRB.getText().toString();
+        /*data[9] = userGenderRB.getText().toString();
         if (data[0].isEmpty())
         {
             Toast.makeText(getContext(), "First Name cannot be empty", Toast.LENGTH_SHORT).show();
@@ -129,7 +129,7 @@ public class PersonalDetailsFragment extends Fragment{
         {
             Toast.makeText(getContext(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
         return true;
     }
 

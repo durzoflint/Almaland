@@ -2,15 +2,14 @@ package almaland.net.almaland.RegisterUser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import almaland.net.almaland.R;
 
@@ -52,9 +50,12 @@ public class EducationDetailsFragment extends Fragment {
         });
         Button next = rootView.findViewById(R.id.next);
         next.setOnClickListener(view -> {
-            int id = RegisterUserActivity.id;
-            ViewPager viewPager = getActivity().findViewById(id);
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            if (check())
+            {
+                int id = RegisterUserActivity.id;
+                ViewPager viewPager = getActivity().findViewById(id);
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            }
         });
         new FetchCollege().execute();
         new FetchMajor().execute();
@@ -74,6 +75,18 @@ public class EducationDetailsFragment extends Fragment {
         Spinner graduationSpinner = rootView.findViewById(R.id.graduation);
         graduationSpinner.setAdapter(dataAdapter);
         return rootView;
+    }
+
+    private boolean check() {
+        String data[] = RegisterUserActivity.data;
+        EditText specializationET = rootView.findViewById(R.id.specialization);
+        data[13] = specializationET.getText().toString();
+        if (data[13].isEmpty())
+        {
+            Toast.makeText(getContext(), "Specialization cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     void fillDates(ArrayList<String> arrayList) {

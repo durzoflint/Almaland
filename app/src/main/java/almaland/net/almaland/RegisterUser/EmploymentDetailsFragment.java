@@ -57,57 +57,18 @@ public class EmploymentDetailsFragment extends Fragment {
         });
         Button dateOfEmploymentFrom = rootView.findViewById(R.id.dateofemploymentfrom);
         dateOfEmploymentFrom.setOnClickListener(view -> {
-            LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
-            final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
-            new AlertDialog.Builder(getContext())
-                    .setView(pickDate)
-                    .setIcon(android.R.drawable.ic_menu_agenda)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
-                        String year = "" + datePicker.getYear();
-                        String month = "" + (datePicker.getMonth() + 1);
-                        String day = "" + datePicker.getDayOfMonth();
-                        if (month.length() == 1)
-                            month = "0" + month;
-                        if (day.length() == 1)
-                            day = "0" + day;
-                        String date = day +" - "+ month +" - "+ year;
-                        TextView textView = (TextView) view;
-                        textView.setText(date);
-                    })
-                    .create().show();
+            getDate(view);
         });
         Button dateOfEmploymentTo = rootView.findViewById(R.id.dateofemploymentto);
         dateOfEmploymentTo.setOnClickListener(view -> {
-            LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
-            final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
-            new AlertDialog.Builder(getContext())
-                    .setView(pickDate)
-                    .setIcon(android.R.drawable.ic_menu_agenda)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
-                        String year = "" + datePicker.getYear();
-                        String month = "" + (datePicker.getMonth() + 1);
-                        String day = "" + datePicker.getDayOfMonth();
-                        if (month.length() == 1)
-                            month = "0" + month;
-                        if (day.length() == 1)
-                            day = "0" + day;
-                        String date = day +" - "+ month +" - "+ year;
-                        TextView textView = (TextView) view;
-                        textView.setText(date);
-                    })
-                    .create().show();
+            getDate(view);
         });
         new FetchJob().execute();
         new FetchRole().execute();
         return rootView;
     }
 
-    boolean check()
-    {
+    boolean check() {
         String data[] = RegisterUserActivity.data;
         EditText employerET = rootView.findViewById(R.id.employer);
         data[14] = employerET.getText().toString();
@@ -132,7 +93,30 @@ public class EmploymentDetailsFragment extends Fragment {
         }
         return true;
     }
-    
+
+    void getDate(View view) {
+        LayoutInflater inflaterDatePick = LayoutInflater.from(getContext());
+        final View pickDate = inflaterDatePick.inflate(R.layout.layout_date_pick, null);
+        new AlertDialog.Builder(getContext())
+                .setView(pickDate)
+                .setIcon(android.R.drawable.ic_menu_agenda)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    DatePicker datePicker = pickDate.findViewById(R.id.pickdate);
+                    String year = "" + datePicker.getYear();
+                    String month = "" + (datePicker.getMonth() + 1);
+                    String day = "" + datePicker.getDayOfMonth();
+                    if (month.length() == 1)
+                        month = "0" + month;
+                    if (day.length() == 1)
+                        day = "0" + day;
+                    String date = day +" - "+ month +" - "+ year;
+                    TextView textView = (TextView) view;
+                    textView.setText(date);
+                })
+                .create().show();
+    }
+
     private class FetchJob extends AsyncTask<Void,Void,Void> {
         boolean notConnected = false;
         String webPage="";

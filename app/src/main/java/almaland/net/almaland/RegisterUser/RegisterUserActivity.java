@@ -29,7 +29,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.beginFakeDrag();
         mViewPager.setOffscreenPageLimit(4);
-        data = new String[20];
+        data = new String[18];
     }
 
     @Override

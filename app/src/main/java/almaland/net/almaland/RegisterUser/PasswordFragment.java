@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import almaland.net.almaland.R;
 
@@ -26,6 +28,21 @@ public class PasswordFragment extends Fragment {
             int id = RegisterUserActivity.id;
             ViewPager viewPager = getActivity().findViewById(id);
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+        });
+        Button submit = rootView.findViewById(R.id.submit);
+        submit.setOnClickListener(view -> {
+            EditText passwordET = rootView.findViewById(R.id.password);
+            EditText password2ET = rootView.findViewById(R.id.password2);
+            String password = passwordET.getText().toString();
+            String password2 = password2ET.getText().toString();
+            if (!password.equals(password2) || password.isEmpty() || password2.isEmpty())
+                Toast.makeText(getContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+            else
+            {
+                String data[] = RegisterUserActivity.data;
+                data[17] = password;
+                //Todo: Send data to server
+            }
         });
         return rootView;
     }

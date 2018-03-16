@@ -94,11 +94,11 @@ public class PersonalDetailsFragment extends Fragment{
         TextView locationTV = rootView.findViewById(R.id.location);
         data[4] = locationTV.getText().toString();
         Spinner countrySpinner = rootView.findViewById(R.id.country);
-        data[5] = countrySpinner.getSelectedItem().toString();
+        data[5] = RegisterUserActivity.getIdsFromSpinnerValues(country, countryId, countrySpinner.getSelectedItem().toString());
         Spinner stateSpinner = rootView.findViewById(R.id.state);
-        data[6] = stateSpinner.getSelectedItem().toString();
+        data[6] = RegisterUserActivity.getIdsFromSpinnerValues(state, stateId, stateSpinner.getSelectedItem().toString());
         Spinner citySpinner = rootView.findViewById(R.id.city);
-        data[7] = citySpinner.getSelectedItem().toString();
+        data[7] = RegisterUserActivity.getIdsFromSpinnerValues(city, cityId, citySpinner.getSelectedItem().toString());
         Button dobTV = rootView.findViewById(R.id.dob);
         data[8] = dobTV.getText().toString();
         RadioGroup gender = rootView.findViewById(R.id.gender);

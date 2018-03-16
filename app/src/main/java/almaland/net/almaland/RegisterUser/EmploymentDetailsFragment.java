@@ -73,9 +73,9 @@ public class EmploymentDetailsFragment extends Fragment {
         EditText employerET = rootView.findViewById(R.id.employer);
         data[20] = employerET.getText().toString();
         Spinner jobDomainSinner = rootView.findViewById(R.id.jobdomain);
-        data[21] = jobDomainSinner.getSelectedItem().toString();
+        data[21] = RegisterUserActivity.getIdsFromSpinnerValues(job, jobId, jobDomainSinner.getSelectedItem().toString());
         Spinner roleSinner = rootView.findViewById(R.id.role);
-        data[22] = roleSinner.getSelectedItem().toString();
+        data[22] = RegisterUserActivity.getIdsFromSpinnerValues(role, roleId, roleSinner.getSelectedItem().toString());
         Button dateOfEmploymentFrom = rootView.findViewById(R.id.dateofemploymentfrom);
         data[23] = dateOfEmploymentFrom.getText().toString();
         Button dateOfEmploymentTo = rootView.findViewById(R.id.dateofemploymentto);

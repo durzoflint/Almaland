@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+
 import almaland.net.almaland.R;
 
 public class RegisterUserActivity extends AppCompatActivity {
@@ -66,5 +68,13 @@ public class RegisterUserActivity extends AppCompatActivity {
         public int getCount() {
             return 5;
         }
+    }
+
+    static String getIdsFromSpinnerValues(ArrayList<String> A, ArrayList<String> B, String string){
+        for (int i = 0;i < A.size(); i++){
+            if (A.get(i).equals(string))
+                return B.get(i);
+        }
+        return "";
     }
 }

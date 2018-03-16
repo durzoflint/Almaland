@@ -80,13 +80,13 @@ public class EducationDetailsFragment extends Fragment {
     private boolean check() {
         String data[] = RegisterUserActivity.data;
         Spinner collegeSpinner = rootView.findViewById(R.id.college);
-        data[14] = collegeSpinner.getSelectedItem().toString();
+        data[14] = RegisterUserActivity.getIdsFromSpinnerValues(colleges, collegesIds, collegeSpinner.getSelectedItem().toString());
         Spinner majorSpinner = rootView.findViewById(R.id.major);
-        data[15] = majorSpinner.getSelectedItem().toString();
+        data[15] = RegisterUserActivity.getIdsFromSpinnerValues(major, majorIds, majorSpinner.getSelectedItem().toString());
         EditText specializationET = rootView.findViewById(R.id.specialization);
         data[16] = specializationET.getText().toString();
         Spinner branchSpinner = rootView.findViewById(R.id.branch);
-        data[17] = branchSpinner.getSelectedItem().toString();
+        data[17] = RegisterUserActivity.getIdsFromSpinnerValues(branch, branchIds, branchSpinner.getSelectedItem().toString());
         Spinner entrySpinner = rootView.findViewById(R.id.entry);
         data[18] = entrySpinner.getSelectedItem().toString();
         Spinner graduationSpinner = rootView.findViewById(R.id.graduation);

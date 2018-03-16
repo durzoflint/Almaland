@@ -1,6 +1,7 @@
 package almaland.net.almaland.RegisterUser;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -116,14 +117,17 @@ public class PasswordFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
-            if(webPage.equals("success"))
+            if(webPage.equals("success after user entry<br>" +
+                    "success after fetching userid and date<br>" +
+                    "success after education entry<br>" +
+                    "success after employement entry<br>" +
+                    "success after updation"))
             {
-                Toast.makeText(getContext(), "Event Save Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Registration Success", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), CheckMailActivity.class));
             }
             else
-            {
                 Toast.makeText(getContext(), "Some error Occurred: "+webPage, Toast.LENGTH_SHORT).show();
-            }
         }
     }
 }

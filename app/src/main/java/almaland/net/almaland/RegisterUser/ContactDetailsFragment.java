@@ -54,6 +54,10 @@ public class ContactDetailsFragment extends Fragment{
         data[12] = phoneVisibleSpinner.getSelectedItem().toString();
         EditText workPhoneET = rootView.findViewById(R.id.workphone);
         data[13] = workPhoneET.getText().toString();
+        if (data[12].equals("Me"))
+            data[12] = "n";
+        else
+            data[12] = "y";
         if(!(!TextUtils.isEmpty(data[10]) && Patterns.EMAIL_ADDRESS.matcher(data[10]).matches()))
         {
             Toast.makeText(getContext(), "Please Enter a valid Email", Toast.LENGTH_SHORT).show();

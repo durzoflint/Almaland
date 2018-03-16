@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 
 import almaland.net.almaland.R;
 
@@ -51,12 +50,11 @@ public class PasswordFragment extends Fragment {
             else
             {
                 data[25] = password;
-                Log.d("Abhinav", Arrays.toString(data));
-                /*boolean flag = true;
+                boolean flag = true;
                 for (int i=0;i<26;i++)
                     if (data[i]==null)
                         flag = false;
-                if (flag)*/
+                if (flag)
                     new RegisterUser().execute();
             }
         });

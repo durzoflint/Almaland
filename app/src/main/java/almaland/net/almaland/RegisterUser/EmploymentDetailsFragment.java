@@ -114,7 +114,7 @@ public class EmploymentDetailsFragment extends Fragment {
                         month = "0" + month;
                     if (day.length() == 1)
                         day = "0" + day;
-                    String date = day +" - "+ month +" - "+ year;
+                    String date = year +"-"+ month +"-"+ day;
                     TextView textView = (TextView) view;
                     textView.setText(date);
                 })

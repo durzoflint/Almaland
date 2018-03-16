@@ -1,8 +1,8 @@
 package almaland.net.almaland;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         notRegistered.setOnClickListener(view -> {
             startActivity(new Intent(this, RegisterUserActivity.class));
         });
-
         Button login = findViewById(R.id.login);
         login.setOnClickListener(view -> {
             EditText email = findViewById(R.id.email);
@@ -40,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             myURL = myURL.replaceAll("\\[", "%22");*/
             //Todo use email and password to login at
             //http://almaland.net/app/login.php?email=aaaorabhinav@gmail.com&password=password
-            //If Email not registered then take display invalid username or password
+            //If Email not registered then display invalid username or password
         });
     }
 }

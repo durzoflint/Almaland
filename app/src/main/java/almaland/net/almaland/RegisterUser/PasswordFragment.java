@@ -126,6 +126,8 @@ public class PasswordFragment extends Fragment {
                 Toast.makeText(getContext(), "Registration Success", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), CheckMailActivity.class));
             }
+            else if (webPage.equals("Email already exists"))
+                Toast.makeText(getContext(), "Email already exists.", Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(getContext(), "Some error Occurred: "+webPage, Toast.LENGTH_SHORT).show();
         }

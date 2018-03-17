@@ -6,12 +6,37 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.TwitterAuthProvider;
+import com.linkedin.platform.APIHelper;
+import com.linkedin.platform.LISessionManager;
+import com.linkedin.platform.errors.LIApiError;
+import com.linkedin.platform.errors.LIAuthError;
+import com.linkedin.platform.listeners.ApiListener;
+import com.linkedin.platform.listeners.ApiResponse;
+import com.linkedin.platform.listeners.AuthListener;
+import com.linkedin.platform.utils.Scope;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,13 +47,40 @@ import java.net.URL;
 import almaland.net.almaland.RegisterUser.RegisterUserActivity;
 
 public class LoginActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    TwitterLoginButton loginTwitter;
+    private static final String linkedinUrl = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name," +
+            "public-profile-url,picture-url,email-address,picture-urls::(original))";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TwitterAuthConfig authConfig =  new TwitterAuthConfig(
+                getString(R.string.com_twitter_sdk_android_CONSUMER_KEY),
+                getString(R.string.com_twitter_sdk_android_CONSUMER_SECRET));
+        TwitterConfig twitterConfig = new TwitterConfig.Builder(this)
+                .twitterAuthConfig(authConfig)
+                .build();
+        Twitter.initialize(twitterConfig);
+
         setContentView(R.layout.activity_login);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        loginTwitter = findViewById(R.id.login_twitter);
+        loginTwitter.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                handleTwitterSession(result.data);
+            }
+            @Override
+            public void failure(TwitterException exception) {
+                Toast.makeText(LoginActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         TextView notRegistered = findViewById(R.id.notregistered);
         notRegistered.setOnClickListener(view -> {
@@ -127,5 +179,80 @@ public class LoginActivity extends AppCompatActivity {
             else
                 Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Linkedin
+        LISessionManager.getInstance(getApplicationContext())
+                .onActivityResult(this,
+                        requestCode, resultCode, data);
+
+        // Pass the activity result to the Twitter login button.
+        loginTwitter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void handleTwitterSession(TwitterSession session) {
+        AuthCredential credential = TwitterAuthProvider.getCredential(
+                session.getAuthToken().token,
+                session.getAuthToken().secret);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user.getEmail());
+                    }
+                    else {
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    void updateUI(String email)
+    {
+        //Todo: Check login with this email
+        Log.d("Abhinav", email);
+    }
+
+    public void loginLinkedin(View view){
+        LISessionManager.getInstance(getApplicationContext())
+                .init(this, buildScope(), new AuthListener() {
+                    @Override
+                    public void onAuthSuccess() {
+                        linkededinApiHelper();
+                    }
+
+                    @Override
+                    public void onAuthError(LIAuthError error) {
+                        Toast.makeText(LoginActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }, true);
+    }
+
+    public void linkededinApiHelper(){
+        APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
+        apiHelper.getRequest(this, linkedinUrl, new ApiListener() {
+            @Override
+            public void onApiSuccess(ApiResponse result) {
+                JSONObject response = result.getResponseDataAsJson();
+                try {
+                    String email = response.get("emailAddress").toString();
+                    updateUI(email);
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onApiError(LIApiError error) {
+                Toast.makeText(LoginActivity.this, "Linkedin API Error" + error.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private static Scope buildScope() {
+        return Scope.build(Scope.R_BASICPROFILE, Scope.R_EMAILADDRESS);
     }
 }

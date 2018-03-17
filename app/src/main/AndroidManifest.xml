@@ -20,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LinkedinHelperActivity" />
         <activity android:name=".TwitterLogin.TwitterLoginActivity" />
         <activity android:name=".LinkedinLogin.LinkedinLoginActivity" />
         <activity

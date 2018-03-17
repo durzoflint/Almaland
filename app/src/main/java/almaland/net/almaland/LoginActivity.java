@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -48,6 +47,7 @@ import almaland.net.almaland.RegisterUser.RegisterUserActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    SharedPreferences.Editor loginPrefsEditor;
     TwitterLoginButton loginTwitter;
     private static final String linkedinUrl = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name," +
             "public-profile-url,picture-url,email-address,picture-urls::(original))";
@@ -90,15 +90,19 @@ public class LoginActivity extends AppCompatActivity {
         EditText emailET = findViewById(R.id.email);
         EditText passwordET = findViewById(R.id.password);
 
-        final CheckBox rememberpasswordbox = findViewById(R.id.checkBox);
+        CheckBox rememberpasswordbox = findViewById(R.id.checkBox);
         SharedPreferences loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        final SharedPreferences.Editor loginPrefsEditor = loginPreferences.edit();
+        loginPrefsEditor = loginPreferences.edit();
         boolean savelogin = loginPreferences.getBoolean("savelogin", false);
         if(savelogin)
         {
-            emailET.setText(loginPreferences.getString("id",""));
-            passwordET.setText(loginPreferences.getString("password",""));
+            String email = loginPreferences.getString("id","");
+            String password = loginPreferences.getString("password","");
+            emailET.setText(email);
+            if (!password.equals("API"))
+                passwordET.setText(password);
             rememberpasswordbox.setChecked(true);
+            signIn(email, password);
         }
 
         Button login = findViewById(R.id.login);
@@ -107,16 +111,14 @@ public class LoginActivity extends AppCompatActivity {
             String password = passwordET.getText().toString();
             if (!email.isEmpty() && !password.isEmpty())
             {
-                if (rememberpasswordbox.isChecked()) {
-                    loginPrefsEditor.putBoolean("savelogin", true);
-                    loginPrefsEditor.putString("id", email);
-                    loginPrefsEditor.putString("password", password);
-                    loginPrefsEditor.apply();
-                } else {
+                if (!rememberpasswordbox.isChecked())
+                {
                     loginPrefsEditor.clear();
                     loginPrefsEditor.commit();
+                    new Login().execute(email, password);
                 }
-                new Login().execute(email, password);
+                else
+                    signIn(email, password);
             }
             else
                 Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
@@ -174,10 +176,10 @@ public class LoginActivity extends AppCompatActivity {
             if(webPage.equals("success"))
             {
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getContext(), CheckMailActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
             else
-                Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -200,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user.getEmail());
+                        signIn(user.getEmail(), "API");
                     }
                     else {
                         Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
@@ -208,10 +210,12 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    void updateUI(String email)
-    {
-        //Todo: Check login with this email
-        Log.d("Abhinav", email);
+    void signIn(String email, String password) {
+        loginPrefsEditor.putBoolean("savelogin", true);
+        loginPrefsEditor.putString("id", email);
+        loginPrefsEditor.putString("password", password);
+        loginPrefsEditor.apply();
+        new Login().execute(email, password);
     }
 
     public void loginLinkedin(View view){
@@ -237,7 +241,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject response = result.getResponseDataAsJson();
                 try {
                     String email = response.get("emailAddress").toString();
-                    updateUI(email);
+                    signIn(email, "API");
 
                 } catch (Exception e){
                     e.printStackTrace();

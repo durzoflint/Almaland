@@ -20,8 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TwitterLogin.TwitterLoginActivity" />
-        <activity android:name=".LinkedinLogin.LinkedinLoginActivity" />
         <activity
             android:name=".RegisterUser.RegisterUserActivity"
             android:label="@string/title_activity_register_user"
@@ -35,7 +33,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
